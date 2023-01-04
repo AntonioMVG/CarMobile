@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class CarController : MonoBehaviour
 {
     public float speed;
     public float speedGainPerSecond;
     public float turnSpeed;
+    public TMP_Text speedTxt;
 
     private int steerValue;
 
@@ -21,5 +24,17 @@ public class CarController : MonoBehaviour
     public void Steer(int value)
     {
         steerValue = value;
+    }
+
+    public void Accelerate()
+    {
+        speed += 1;
+        speedTxt.text = speed.ToString("Speed 00");
+    }
+
+    public void Decelerate()
+    {
+        speed -= 1;
+        speedTxt.text = speed.ToString("Speed 00");
     }
 }
