@@ -7,7 +7,6 @@ using UnityEngine.SocialPlatforms.Impl;
 public class CarController : MonoBehaviour
 {
     public float speed;
-    public float speedGainPerSecond;
     public float turnSpeed;
     public TMP_Text speedTxt;
 
@@ -16,7 +15,6 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speed += speedGainPerSecond * Time.deltaTime;
         transform.Rotate(0f, steerValue * turnSpeed * Time.deltaTime, 0f);
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
@@ -26,15 +24,22 @@ public class CarController : MonoBehaviour
         steerValue = value;
     }
 
-    public void Accelerate()
+    public void Accelerate(int value)
     {
-        speed += 1;
-        speedTxt.text = speed.ToString("Speed 00");
+        speed += value;
+        speedTxt.text = speed.ToString("00");
+        speedTxt.color = Color.green;
+
+        if (speed <= 0)
+            speedTxt.color = Color.white;
     }
 
-    public void Decelerate()
+    public void Decelerate(int value)
     {
-        speed -= 1;
-        speedTxt.text = speed.ToString("Speed 00");
+        speed -= value;
+        speedTxt.text = speed.ToString("00");
+
+        if(speed < 0)
+            speedTxt.color = Color.red;
     }
 }
